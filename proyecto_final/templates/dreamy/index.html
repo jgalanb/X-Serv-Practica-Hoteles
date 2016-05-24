@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Alojamientos en la Comunidad de Madrid</title>
+<link rel="stylesheet" href="style-{{ color|safe }}.css" type="text/css" media="screen" />
+</head>
+
+<body>
+
+<div id="wrapper">
+
+	<div id="header">
+		<h1>Alojamientos en Madrid</h1>
+	</div>
+
+	<div id="menu">
+		<ul>
+			{{ menu|safe}}
+		</ul>
+	</div>
+
+	<div id="sidebar">
+		<div id="feed">
+			<a class="feed-button" href="#">&nbsp;</a>
+		</div>
+		<ul>
+			{% if autenticado %}
+					<p>Bienvenido {{ usuario }}! </br>
+					<a href=/{{ usuario }}>Mi pagina personal<a></p>
+					<a href=/logout>Cerrar sesion</a>
+			{% else %}
+					<form method="post" action="/login">
+					{% csrf_token %}
+					<p>
+					Accede a tu cuenta!
+						<table>
+							<tr>
+								<td>Usuario:</td>
+								<td>{{ form.username }}</td>
+							</tr>
+								<tr>
+									<td>Contraseña:</td>
+									<td>{{ form.password }}</td>
+								</tr>
+							</table>
+							<input type="submit" value="Acceder" />
+						</p>
+					</form>
+			{% endif %}
+			<p></p>
+			<li>{{ enlaces_personales|safe }}</li>
+
+		</ul>
+		<div id="sidebar-bottom">
+			&nbsp;
+		</div>
+	</div>
+
+	<div id="content">
+		<div id="ad-top">
+			<!-- Insert 468x60 banner advertisement -->
+		</div>
+		<div class="entry">
+			<div class="entry-title"> {{ titulo|safe }}</div>
+			<p> {{ contenido|safe }}</p>
+		</div>
+	</div>
+
+	<div id="footer">
+		<div id="footer-valid">
+			<li>Esta aplicacion utiliza datos del portal de datos abiertos de la ciudad de Madrid</li>
+			<a href="http://bit.ly/1T24Zsq">Descripcion</a> /
+			<a href="http://cursosweb.github.io/etc/alojamientos_es.xml">Documento XML en Español</a> /
+			<a href="http://cursosweb.github.io/etc/alojamientos_en.xml">Documento XML en Inglés</a> /
+			<a href="http://cursosweb.github.io/etc/alojamientos_fr.xml">Documento XML en Francés</a>
+		</div>
+	</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,20 @@
+<html>
+<body>
+  <form method="post" action="/login">
+  {% csrf_token %}
+  <p>
+    <table>
+      <tr>
+        <td>Username</td>
+        <td>{{ form.username }}</td>
+      </tr>
+        <tr>
+          <td>Password</td>
+          <td>{{ form.password }}</td>
+        </tr>
+      </table>
+      <input type="submit" value="login" />
+    </p>
+  </form>
+</body>
+</html>
