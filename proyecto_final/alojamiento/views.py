@@ -486,11 +486,6 @@ def obtener_XML_usuario(usuario):
     hoteles_seleccionados = HotelSeleccionado.objects.filter(usuario=usuario)
     respuesta = '<?xml version="1.0" encoding="UTF-8"?>\n'
     respuesta += '<serviceList>Alojamientos seleccionados por \n\t' + usuario
-    """<nombre_hotel>Canal RSS del usuario '
-    salida += usuario + '</nombre>\n\t<link>http://localhost:'
-    salida += '8000/' + usuario + '</link>\n\t<description>'
-    salida += 'Pagina con los alojamientos seleccionados por el'
-    salida += ' usuario ' + usuario + '</description>\n\t'"""
     for hotel_seleccionado in hoteles_seleccionados:
         id_hotel = hotel_seleccionado.id_hotel
         hotel = Hotel.objects.get(id=id_hotel)
