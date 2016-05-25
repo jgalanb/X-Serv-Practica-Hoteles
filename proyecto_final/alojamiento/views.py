@@ -161,7 +161,7 @@ def pag_principal(request):
     http_Resp = ActualizarBase()
     metodo = request.method
     if metodo == "POST" and request.POST.get("tipo") == "Actualizar":
-        http_Resp += cargar_alojamientos()
+        http_Resp += "Los alojamientos ya estan cargados en la base de datos!"
         return HttpResponseRedirect("/")
     else:
         http_Resp += lista_alojamientos_comentados()
