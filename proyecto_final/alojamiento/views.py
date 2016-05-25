@@ -509,9 +509,9 @@ def obtener_XML_usuario(usuario):
         except IndexError:
             img_presentacion = ""
         respuesta += '<Alojamiento>'
-        respuesta += '\t<nombre>'
+        respuesta += '\t<nombre><![CDATA[ '
         respuesta += nombre_hotel
-        respuesta += '\t</nombre>'
+        respuesta += '\t ]]></nombre>'
         respuesta += '\t<direccion>'
         respuesta += direccion_hotel
         respuesta += '\t</direccion>'
