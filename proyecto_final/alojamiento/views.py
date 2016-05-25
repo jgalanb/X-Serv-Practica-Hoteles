@@ -93,8 +93,11 @@ def lista_alojamientos_comentados():
                         hotel = Hotel.objects.get(nombre=alojamiento.nombre)
                         identificador = hotel.id
                         img_presentacion = hotel.imagenes
-                        img_presentacion = img_presentacion.split("',")[0]
-                        img_presentacion = img_presentacion.split("u'")[1]
+                        try:
+                            img_presentacion = img_presentacion.split("',")[0]
+                            img_presentacion = img_presentacion.split("u'")[1]
+                        except IndexError:
+                            img_presentacion = ""
                         pagina_hotel = "http://localhost:8000/alojamientos" + str(identificador)
                     except Hotel.DoesNotExist:
                         respuesta = "El modelo Hotel no existe!"
@@ -102,9 +105,13 @@ def lista_alojamientos_comentados():
                     respuesta += "<p><a href='" + alojamiento.web + "'>" + alojamiento.nombre + \
                             "</a><br/>" +\
                             "Direccion: " + alojamiento.direccion + "<br/>" + \
-                            "<a href='" + pagina_hotel + "'>Mas informacion</a>" + "<br/>" + \
-                            '<img src="' + img_presentacion + '"width="200" height="150" border="2">' + \
+                            "<a href='" + pagina_hotel + "'>Mas informacion</a>" + "<br/>"
+                    if img_presentacion == "":
+                        respuesta += "<h4><font color='red'>No hay imagen disponible</font></h4>" + "<hr>"
+                    else:
+                        respuesta += '<img src="' + img_presentacion + '"width="200" height="150" border="2">' + \
                             '<hr>'
+
                     max_hoteles = max_hoteles + 1
 
                 else:
@@ -411,9 +418,12 @@ def mostrar_hoteles_seleccionados(usuario, indice):
                             "</a><br/>" +\
                             "Direccion: " + hotel.direccion + "<br/>" + \
                             "<a href='" + pagina_hotel + "'>Mas informacion</a>" + "<br/>" + \
-                            "Seleccionado el dia: " + alojamiento.fecha_seleccion + "<br/>" + \
-                            '<img src="' + img_presentacion + '"width="200" height="150" border="2">' + \
-                            '<hr>'
+                            "Seleccionado el dia: " + alojamiento.fecha_seleccion + "<br/>"
+            if img_presentacion == "":
+                respuesta += "<h4><font color='red'>No hay imagen disponible</font></h4>" + "<hr>"
+            else:
+                respuesta += '<img src="' + img_presentacion + '"width="200" height="150" border="2">' + \
+                    '<hr>'
 
         contador = 0
         for alojamiento in alojamientos:
@@ -468,7 +478,7 @@ def pag_usuario(request, usuario):
     http_Resp += "<p><h3><font color='blue'>Mi seleccion de alojamientos en Madrid:</font></h3></p>"
     respuesta, contador = mostrar_hoteles_seleccionados(usuario, indice)
     http_Resp += respuesta
-    for n in range (0, contador):
+    for n in range (0, int(math.ceil(float(contador)/10.0))):
         http_Resp += "<a href='" + str(usuario) + "?offset=" + str(n) + "'>" + str(n+1) + " " + "</a>"
 
     tipo = "pag NO principal"
